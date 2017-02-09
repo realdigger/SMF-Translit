@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+
+<package-info xmlns="http://www.simplemachines.org/xml/package-info">
+    <id>digger:translit</id>
+    <name>Translit</name>
+    <version>1.0</version>
+    <type>modification</type>
+
+    <install for="2.0 - 2.0.99">
+        <readme>README.md</readme>
+        <code>hooks.php</code>
+        <require-dir name="Sources" destination="$boarddir"/>
+        <require-dir name="Themes" destination="$boarddir"/>
+    </install>
+
+    <uninstall for="2.0 - 2.0.99">
+        <code>hooks.php</code>
+        <remove-file name="$themedir/scripts/mod-translit.js"/>
+        <remove-file name="$sourcedir/Mod-Translit.php"/>
+    </uninstall>
+
+</package-info>
