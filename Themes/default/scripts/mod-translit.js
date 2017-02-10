@@ -43,8 +43,8 @@ function changelanguage() {
 
 function setrus() {
     language = 0;
-    document.postmodify.tronoff.value = 'выключить';
-    document.postmodify.trstatus.value = 'вкл';
+    document.postmodify.tronoff.value = translit_lang_button_off;
+    document.postmodify.trstatus.value = translit_lang_on;
     document.postmodify.trstatus.id = 'translit-on';
     setfoc();
     return false;
@@ -52,8 +52,8 @@ function setrus() {
 
 function setlat() {
     language = 1;
-    document.postmodify.tronoff.value = 'включить';
-    document.postmodify.trstatus.value = 'выкл';
+    document.postmodify.tronoff.value = translit_lang_button_on;
+    document.postmodify.trstatus.value = translit_lang_off;
     document.postmodify.trstatus.id = 'translit-off';
     setfoc();
     return false;
@@ -89,7 +89,6 @@ function laststringlength(thetext) {
 }
 
 function translate_letter(evnt) {
-    var code = void 0;
     var code = evnt.charCode ? evnt.charCode : void 0;
     if (!evnt.which) {
         return true;
@@ -244,7 +243,7 @@ function translateAlltoCyrillic() {
 }
 
 function translateStringtoCyrillic(thestringlat) {
-    var symbb, fromm, howmuch, thestringcyr = "";
+    var symbbb, fromm, howmuch, thestringcyr = "";
     for (kk = 0; kk < thestringlat.length; kk++) {
         howmuch = thestringcyr.length > maxtransliterationlength ? maxtransliterationlength : thestringcyr.length;
         fromm = thestringcyr.length - howmuch;
@@ -290,12 +289,12 @@ function TranslitPanel() {
     '<tr align="center"><td>а</td><td>б</td><td>в</td><td>г</td><td>д</td><td>е</td><td>ё</td><td>ж</td><td>з</td><td>и</td><td>й</td><td>к</td><td>л</td><td>м</td><td>н</td><td>о</td><td>п</td><td>р</td><td>с</td><td>т</td><td>у</td><td>ф</td><td>х</td><td>ц</td><td>ч</td><td>ш</td><td>щ</td><td>ъ</td><td>ы</td><td>ь</td><td>э</td><td>ю</td><td>я</td><td><i>сх</i></td><td><i>йо</i></td><td><i>йе</i></td></tr>' +
     '</tbody></table>' +
     '<p>' +
-    'Автотранслит: ' +
-    '<input style="margin-right: 5px;" readonly="1" value="выкл" name="trstatus" class="input_text" size="4" id="translit-off" type="text">' +
-    '<input style="margin-right: 5px;" onclick="changelanguage();" name="tronoff" class="button_submit" value="включить" type="button">' +
+    translit_lang_auto + ': ' +
+    '<input style="margin-right: 5px;" readonly="1" value="' + translit_lang_off + '" name="trstatus" class="input_text" size="4" id="translit-off" type="text">' +
+    '<input style="margin-right: 5px;" onclick="changelanguage();" name="tronoff" class="button_submit" value="' + translit_lang_button_on + '" type="button">' +
     '</p><p>' +
-    '<input style="margin-right: 5px;" onclick="translateAlltoCyrillic();" class="button_submit" value="всё в кириллицу" title="Перевести текст в кириллицу" type="button">' +
-    '<input style="margin-right: 5px;" onclick="translateAlltoLatin();" class="button_submit" value="всё в латиницу" title="Перевести текст в латиницу" type="button">' +
+    '<input style="margin-right: 5px;" onclick="translateAlltoCyrillic();" class="button_submit" value="' + translit_lang_button_cyr + '" title="' + translit_lang_button_cyr_desc + '" type="button">' +
+    '<input style="margin-right: 5px;" onclick="translateAlltoLatin();" class="button_submit" value="' + translit_lang_button_lat + '" title="' + translit_lang_button_lat_desc + '" type="button">' +
     '</p>');
 }
 

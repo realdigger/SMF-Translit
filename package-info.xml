@@ -4,7 +4,7 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info">
     <id>digger:translit</id>
     <name>Translit</name>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <type>modification</type>
 
     <install for="2.0 - 2.0.99">
@@ -16,6 +16,7 @@
 
     <uninstall for="2.0 - 2.0.99">
         <code>hooks.php</code>
+        <remove-dir name="$languagedir/Translit"/>
         <remove-file name="$themedir/scripts/mod-translit.js"/>
         <remove-file name="$sourcedir/Mod-Translit.php"/>
     </uninstall>
