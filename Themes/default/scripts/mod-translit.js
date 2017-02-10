@@ -15,7 +15,6 @@ var language = 1;
 var prelanguage = 1;
 var processhtmltags = 1;
 var processbbcodetags = 1;
-var processWwwLinks = 1;
 var maxtransliterationlength = 3;
 var textareafontsize = 14; // warning: the value is also defined in the css-file !!!
 var textreafontwidth = 7; // the width of the text is supposed to be 7 !!!
@@ -38,6 +37,15 @@ function changelanguage() {
         document.getElementById('translit-on').style.backgroundColor = '#90ee90';
         //document.getElementsByName('subject')[0].style.backgroundColor = '#90ee90';
     }
+    setfoc();
+    return false;
+}
+
+function setrus() {
+    language = 0;
+    document.postmodify.tronoff.value = 'выключить';
+    document.postmodify.trstatus.value = 'вкл';
+    document.postmodify.trstatus.id = 'translit-on';
     setfoc();
     return false;
 }
@@ -78,15 +86,6 @@ function nofstrings(thetext, txtareawidthpix, symbolwidth) {
 function laststringlength(thetext) {
     var t = thetext.replace(/\n/g, " ");
     return thetext.replace(/\n/g, " ").length - thetext.replace(/\n/g, " ").lastIndexOf(" ") - 1;
-}
-
-function setrus() {
-    language = 0;
-    document.postmodify.tronoff.value = 'выключить';
-    document.postmodify.trstatus.value = 'вкл';
-    document.postmodify.trstatus.id = 'translit-on';
-    setfoc();
-    return false;
 }
 
 function translate_letter(evnt) {
@@ -298,63 +297,6 @@ function TranslitPanel() {
     '<input style="margin-right: 5px;" onclick="translateAlltoCyrillic();" class="button_submit" value="всё в кириллицу" title="Перевести текст в кириллицу" type="button">' +
     '<input style="margin-right: 5px;" onclick="translateAlltoLatin();" class="button_submit" value="всё в латиницу" title="Перевести текст в латиницу" type="button">' +
     '</p>');
-}
-
-function TranslitPanel2() {
-    var panel = '<br />';
-
-    panel += showTranslitChar('A');
-    panel += showTranslitChar('B');
-    panel += showTranslitChar('V');
-    panel += showTranslitChar('G');
-    panel += showTranslitChar('D');
-    panel += showTranslitChar('E');
-    panel += showTranslitChar('Yo');
-    panel += showTranslitChar('Zh');
-    panel += showTranslitChar('Z');
-    panel += showTranslitChar('I');
-    panel += showTranslitChar('J');
-    panel += showTranslitChar('K');
-    panel += showTranslitChar('L');
-    panel += showTranslitChar('M');
-    panel += showTranslitChar('N');
-    panel += showTranslitChar('O');
-    panel += showTranslitChar('P');
-    panel += showTranslitChar('R');
-    panel += showTranslitChar('S');
-    panel += showTranslitChar('T');
-    panel += showTranslitChar('U');
-    panel += showTranslitChar('F');
-    panel += showTranslitChar('H');
-    panel += showTranslitChar('C');
-    panel += showTranslitChar('Ch');
-    panel += showTranslitChar('Sh');
-    panel += showTranslitChar('Sh`');
-    panel += showTranslitChar("'");
-    panel += showTranslitChar('Y');
-    panel += showTranslitChar('`');
-    panel += showTranslitChar('E`');
-    panel += showTranslitChar("'U");
-    panel += showTranslitChar("'A");
-
-    panel += '<div style="float: left; padding: 1px; margin: 2px; padding-right: 3px;">' + '' +
-
-        '<input style="margin-right: 5px;" type="button" class="button_submit" name="rus" value="Rus" title="Rus" />' +
-
-        '<input style="margin-right: 5px;" type="button" class="button_submit" name="eng" value="Eng" title="Eng" />' +
-
-        '<input type="button" class="button_submit" name="trans" value="Translit all to cyrillic" onclick="translate(document.forms.postmodify.message, "ru");" accesskey="t" title="Translit all to cyrillic" />' +
-
-        '<input type="button" class="button_submit" name="trans" value="Translit all to cyrillic" onclick="translate(document.forms.postmodify.message, "en");" accesskey="t" title="Translit all to latin" />' +
-
-
-        '</div>';
-
-
-    panel += '<div style="float: none;"></div><br /><br /><br /><hr />';
-
-    return panel;
-
 }
 
 function showTranslitPanel() {
