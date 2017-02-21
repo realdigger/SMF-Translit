@@ -18,6 +18,7 @@ var processbbcodetags = 1;
 var maxtransliterationlength = 3;
 var textareafontsize = 14; // warning: the value is also defined in the css-file !!!
 var textreafontwidth = 7; // the width of the text is supposed to be 7 !!!
+var bRichTextWasEnabled;
 
 function setfoc() {
     window.document.postmodify.message.focus();
@@ -27,12 +28,17 @@ function setfoc() {
 function changelanguage() {
     if (!language) {
         setlat();
+        if (oEditorHandle_message.bRichTextEnabled != true && bRichTextWasEnabled == true) oEditorHandle_message.toggleView();
         document.forms.postmodify.message.style.backgroundColor = '';
         document.getElementById('translit-off').style.backgroundColor = '';
         //document.getElementsByName('subject')[0].style.backgroundColor = '';
     }
     else {
         setrus();
+        if (oEditorHandle_message.bRichTextEnabled == true) {
+            bRichTextWasEnabled = true;
+            oEditorHandle_message.toggleView();
+        }
         document.forms.postmodify.message.style.backgroundColor = '#90ee90';
         document.getElementById('translit-on').style.backgroundColor = '#90ee90';
         //document.getElementsByName('subject')[0].style.backgroundColor = '#90ee90';
@@ -164,6 +170,8 @@ function translateAlltoCyrillic() {
     var p2 = tt.selectionEnd;
     var preval = "";
     var postval = "";
+    var txtnew = "";
+
     if (p1 == p2) {
         txt = tt.value;
     }
@@ -172,7 +180,7 @@ function translateAlltoCyrillic() {
         txt = tt.value.substring(p1, p2);
         postval = tt.value.substring(p2);
     }
-    var txtnew = "";
+
     if ((!processhtmltags) && (!processbbcodetags)) {
         txtnew = translateStringtoCyrillic(txt);
     }
