@@ -1,6 +1,12 @@
-# SMF Translit mod
-* **Author:** digger http://mysmf.ru
-* **License:** The MIT License (MIT)
+[![GitHub release](https://img.shields.io/github/release/realdigger/SMF-Translit.svg)](https://github.com/realdigger/SMF-Translit/releases)
+[![Build Status](https://travis-ci.org/realdigger/SMF-Translit.svg?branch=master)](https://travis-ci.org/realdigger/SMF-Translit)
+[![SMF](https://img.shields.io/badge/SMF-2.0-blue.svg?style==flat)](https://simplemachines.org)
+[![Hooks](https://img.shields.io/badge/hooks%20only-✓-blue.svg?style==flat)]()
+[![license](https://img.shields.io/github/license/realdigger/SMF-Translit.svg)]()
+
+# SMF Translit mod [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=SMF%20Translit&url=https://github.com/realdigger/SMF-Translit&hashtags=smf,translit)
+* **Author:** digger [https://mysmf.net](https://mysmf.net)
+* **License:** The MIT License (MIT) https://opensource.org/licenses/MIT
 * **Compatible with:** SMF 2.0
 * **Hooks only:** Yes
 * **Languages:** English, Russian

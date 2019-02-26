@@ -1,8 +1,8 @@
 /**
  * @package SMF Translit Mod
  * @file mod-translit.js
- * @author digger <digger@mysmf.ru> <http://mysmf.ru>
- * @copyright Copyright (c) 2012-2017, digger
+ * @author digger <digger@mysmf.net> <https://mysmf.net>
+ * @copyright Copyright (c) 2012-2019, digger
  * @license The MIT License (MIT) https://opensource.org/licenses/MIT
  * @version 1.0
  */
@@ -16,8 +16,8 @@ var prelanguage = 1;
 var processhtmltags = 1;
 var processbbcodetags = 1;
 var maxtransliterationlength = 3;
-var textareafontsize = 14; // warning: the value is also defined in the css-file !!!
-var textreafontwidth = 7; // the width of the text is supposed to be 7 !!!
+var textareafontsize = 14;
+var textreafontwidth = 7;
 var bRichTextWasEnabled;
 
 function setfoc() {

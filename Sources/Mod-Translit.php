@@ -2,8 +2,8 @@
 /**
  * @package SMF Translit Mod
  * @file Mod-Translit.php
- * @author digger <digger@mysmf.ru> <http://mysmf.ru>
- * @copyright Copyright (c) 2012-2017, digger
+ * @author digger <digger@mysmf.net> <http://mysmf.net>
+ * @copyright Copyright (c) 2012-2019, digger
  * @license The MIT License (MIT) https://opensource.org/licenses/MIT
  * @version 1.0
  */
