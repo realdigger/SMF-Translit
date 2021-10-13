@@ -3,7 +3,7 @@
  * @package SMF Translit Mod
  * @file hooks.php
  * @author digger <digger@mysmf.net> <https://mysmf.net>
- * @copyright Copyright (c) 2012-2019, digger
+ * @copyright Copyright (c) 2012-2021, digger
  * @license The MIT License (MIT) https://opensource.org/licenses/MIT
  * @version 1.0
  *
