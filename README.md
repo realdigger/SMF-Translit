@@ -14,7 +14,18 @@
 ## Description
 Text transliteration mod.
 
+## Installation
+
+Download and install latest release tar.gz file
+from [releases page](https://github.com/realdigger/SMF-Translit/releases).
+
 ## Описание
 Мод транслитерации текста.
 
 ![translit](https://cloud.githubusercontent.com/assets/1187218/22805876/fd83150e-ef38-11e6-971e-7159bd6ca6ce.png)
+
+## Установка
+
+Загрузите и установите файл tar.gz актуальной версии
+со [страницы загрузок](https://github.com/realdigger/SMF-Translit/releases).
+
