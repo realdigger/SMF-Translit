@@ -1,12 +1,13 @@
 /**
+ * Transliteration panel and message editor controls.
  * @package SMF Translit Mod
- * @file mod-translit.js
- * @author digger <digger@mysmf.net> <https://mysmf.net>
  * @copyright Copyright (c) 2012-2019, digger
+ * @link https://github.com/realdigger/SMF-Translit
  * @license The MIT License (MIT) https://opensource.org/licenses/MIT
- * @version 1.0
+ * @version 1.0.4
  */
 
+var SMFTranslit = (function () {
 var lat = ('/E_/e_/O_/o_Шh_Йo_Зh_Цh_Сh_Йe_Йu_Йa_Ыo_Ыu_Ыa_ШH_ЙO_ЗH_ЦH_СH_ЙE_ЙU_ЙA_ЫO_ЫU_ЫA_A_B_V_G_D_E_Z_I_J_K_L_M_N_O_P_R_S_T_U_F_X_C_ъ#_Y_ь\'_H_W_Q_шh_йo_зh_цh_сh_йe_йu_йa_ыo_ыa_a_b_v_g_d_e_z_i_j_k_l_m_n_o_p_r_s_t_u_f_x_c_#_y_\'_h_w_q_' + String.fromCharCode(220) + '_' + String.fromCharCode(214) + '_' + String.fromCharCode(196) + '_' + String.fromCharCode(252) + '_' + String.fromCharCode(246) + '_' + String.fromCharCode(228)).split('_');
 var rus = ('E_e_O_o_Щ_Ё_Ж_Ч_Ш_Э_Ю_Я_Ё_Ю_Я_Щ_Ё_Ж_Ч_Ш_Э_Ю_Я_Ё_Ю_Я_А_Б_В_Г_Д_Е_З_И_Й_К_Л_М_Н_О_П_Р_С_Т_У_Ф_Х_Ц_Ъ_Ы_Ь_Х_Щ_Я_щ_ё_ж_ч_ш_э_ю_я_ё_я_а_б_в_г_д_е_з_и_й_к_л_м_н_о_п_р_с_т_у_ф_х_ц_ъ_ы_ь_х_щ_я_Ю_Ё_Э_ю_ё_э').split('_');
 var rus2 = ('Щ_Ё_Ж_Ч_Ш_Э_Ю_Я_А_Б_В_Г_Д_Е_З_И_Й_К_Л_М_Н_О_П_Р_С_Т_У_Ф_Х_Ц_Ъ_Ы_Ь_щ_ё_ж_ч_ш_э_ю_я_а_б_в_г_д_е_з_и_й_к_л_м_н_о_п_р_с_т_у_ф_х_ц_ъ_ы_ь').split('_');
@@ -20,26 +21,61 @@ var textareafontsize = 14;
 var textreafontwidth = 7;
 var bRichTextWasEnabled;
 
+function translitEditor() {
+    var message = document.forms.postmodify && document.forms.postmodify.message;
+    return message && typeof sceditor != 'undefined' ? sceditor.instance(message) : null;
+}
+
+function translitTextarea() {
+    var editor = translitEditor();
+    return editor ? editor.editorMainWrapper.querySelector('textarea') : document.forms.postmodify.message;
+}
+
+function translitRichTextEnabled() {
+    var editor = translitEditor();
+    return editor ? !editor.inSourceMode() : typeof oEditorHandle_message != 'undefined' && oEditorHandle_message.bRichTextEnabled;
+}
+
+function translitToggleView() {
+    var editor = translitEditor();
+    if (editor)
+        editor.toggleSourceMode();
+    else if (typeof oEditorHandle_message != 'undefined')
+        oEditorHandle_message.toggleView();
+}
+
+function translitEnsureSource() {
+    var editor = translitEditor();
+    if (editor && !editor.inSourceMode()) {
+        bRichTextWasEnabled = true;
+        editor.setTextMode();
+    }
+}
+
 function setfoc() {
-    window.document.postmodify.message.focus();
+    var editor = translitEditor();
+    if (editor && !editor.inSourceMode())
+        editor.focus();
+    else
+        translitTextarea().focus();
     return false;
 }
 
 function changelanguage() {
     if (!language) {
         setlat();
-        if (oEditorHandle_message.bRichTextEnabled != true && bRichTextWasEnabled == true) oEditorHandle_message.toggleView();
-        document.forms.postmodify.message.style.backgroundColor = '';
+        if (!translitRichTextEnabled() && bRichTextWasEnabled == true) translitToggleView();
+        translitTextarea().style.backgroundColor = '';
         document.getElementById('translit-off').style.backgroundColor = '';
         //document.getElementsByName('subject')[0].style.backgroundColor = '';
     }
     else {
         setrus();
-        if (oEditorHandle_message.bRichTextEnabled == true) {
+        if (translitRichTextEnabled()) {
             bRichTextWasEnabled = true;
-            oEditorHandle_message.toggleView();
+            translitToggleView();
         }
-        document.forms.postmodify.message.style.backgroundColor = '#90ee90';
+        translitTextarea().style.backgroundColor = '#90ee90';
         document.getElementById('translit-on').style.backgroundColor = '#90ee90';
         //document.getElementsByName('subject')[0].style.backgroundColor = '#90ee90';
     }
@@ -124,7 +160,7 @@ function translate_letter(evnt) {
             evnt.preventDefault();
         }
         txt = String.fromCharCode(code);
-        tt = window.document.postmodify.message;
+        var tt = translitTextarea();
         var pretxt = tt.value.substring(0, tt.selectionStart);
         var result = "";
         var pXpix = tt.scrollTop;
@@ -164,13 +200,15 @@ function translatesymboltolatin(symb) {
 }
 
 function translateAlltoCyrillic() {
+    translitEnsureSource();
     var inloop = 1;
-    var tt = window.document.postmodify.message;
+    var tt = translitTextarea();
     var p1 = tt.selectionStart;
     var p2 = tt.selectionEnd;
     var preval = "";
     var postval = "";
     var txtnew = "";
+    var txt = "";
 
     if (p1 == p2) {
         txt = tt.value;
@@ -252,7 +290,7 @@ function translateAlltoCyrillic() {
 
 function translateStringtoCyrillic(thestringlat) {
     var symbbb, fromm, howmuch, thestringcyr = "";
-    for (kk = 0; kk < thestringlat.length; kk++) {
+    for (var kk = 0; kk < thestringlat.length; kk++) {
         howmuch = thestringcyr.length > maxtransliterationlength ? maxtransliterationlength : thestringcyr.length;
         fromm = thestringcyr.length - howmuch;
         symbbb = thestringlat.substr(kk, 1);
@@ -263,11 +301,13 @@ function translateStringtoCyrillic(thestringlat) {
 }
 
 function translateAlltoLatin() {
-    tt = window.document.postmodify.message;
-    p1 = tt.selectionStart;
-    p2 = tt.selectionEnd;
+    translitEnsureSource();
+    var tt = translitTextarea();
+    var p1 = tt.selectionStart;
+    var p2 = tt.selectionEnd;
     var preval = "";
     var postval = "";
+    var txt = "";
     if (p1 == p2) {
         txt = tt.value;
     }
@@ -276,9 +316,9 @@ function translateAlltoLatin() {
         txt = tt.value.substring(p1, p2);
         postval = tt.value.substring(p2);
     }
-    txtnew = "";
+    var txtnew = "";
     var symb = "";
-    for (kk = 0; kk < txt.length; kk++) {
+    for (var kk = 0; kk < txt.length; kk++) {
         symb = translatesymboltolatin(txt.substr(kk, 1));
         txtnew = txtnew.substr(0, txtnew.length) + symb;
     }
@@ -299,10 +339,10 @@ function TranslitPanel() {
     '<p>' +
     translit_lang_auto + ': ' +
     '<input style="margin-right: 5px;" readonly="1" value="' + translit_lang_off + '" name="trstatus" class="input_text" size="4" id="translit-off" type="text">' +
-    '<input style="margin-right: 5px;" onclick="changelanguage();" name="tronoff" class="button_submit" value="' + translit_lang_button_on + '" type="button">' +
+    '<input style="margin-right: 5px;" onclick="SMFTranslit.changeLanguage();" name="tronoff" class="button_submit" value="' + translit_lang_button_on + '" type="button">' +
     '</p><p>' +
-    '<input style="margin-right: 5px;" onclick="translateAlltoCyrillic();" class="button_submit" value="' + translit_lang_button_cyr + '" title="' + translit_lang_button_cyr_desc + '" type="button">' +
-    '<input style="margin-right: 5px;" onclick="translateAlltoLatin();" class="button_submit" value="' + translit_lang_button_lat + '" title="' + translit_lang_button_lat_desc + '" type="button">' +
+    '<input style="margin-right: 5px;" onclick="SMFTranslit.toCyrillic();" class="button_submit" value="' + translit_lang_button_cyr + '" title="' + translit_lang_button_cyr_desc + '" type="button">' +
+    '<input style="margin-right: 5px;" onclick="SMFTranslit.toLatin();" class="button_submit" value="' + translit_lang_button_lat + '" title="' + translit_lang_button_lat_desc + '" type="button">' +
     '</p>');
 }
 
@@ -312,11 +352,16 @@ function showTranslitPanel() {
     // TODO: Hotkey for language changing
     // TODO: Check for existing
 
-    var findDiv = document.getElementById('message_resizer');
-    if (findDiv == null)
-        findDiv = document.forms.postmodify.message;
+    var form = document.forms.postmodify;
+    if (!form || !form.message)
+        return;
 
-    parent = findDiv.parentNode;
+    var editor = translitEditor();
+    var findDiv = editor ? editor.editorMainWrapper : document.getElementById('message_resizer');
+    if (findDiv == null)
+        findDiv = form.message;
+
+    var parent = findDiv.parentNode;
     var panel = document.createElement('DIV');
     panel.innerHTML = TranslitPanel();
 
@@ -325,9 +370,10 @@ function showTranslitPanel() {
     else
         parent.appendChild(panel);
 
-    document.forms.postmodify.message.onkeypress = function (event) {
-        translate_letter(event);
-    }
+    document.addEventListener('keypress', function (event) {
+        if (event.target === translitTextarea())
+            translate_letter(event);
+    });
 
     //document.getElementsByName('subject')[0].onkeypress = function (event) {
     //    translate_letter(event);
@@ -335,3 +381,11 @@ function showTranslitPanel() {
 
 
 }
+
+return {
+    showPanel: showTranslitPanel,
+    changeLanguage: changelanguage,
+    toCyrillic: translateAlltoCyrillic,
+    toLatin: translateAlltoLatin
+};
+})();

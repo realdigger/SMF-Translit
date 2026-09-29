@@ -1,11 +1,11 @@
 <?php
 /**
+ * Install or remove Translit integration hooks.
  * @package SMF Translit Mod
- * @file hooks.php
- * @author digger <digger@mysmf.net> <https://mysmf.net>
  * @copyright Copyright (c) 2012-2021, digger
+ * @link https://github.com/realdigger/SMF-Translit
  * @license The MIT License (MIT) https://opensource.org/licenses/MIT
- * @version 1.0
+ * @version 1.0.4
  *
  * To run this install manually please make sure you place this
  * in the same place and SSI.php and index.php

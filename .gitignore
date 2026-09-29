@@ -1,4 +1,26 @@
 .idea/
 *.iml
-.gitignore
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local settings and temporary files
+.env
+.env.*
+Settings.php
+*.log
+*.tmp
+*.bak
+*.orig
+*.old
+*~
 todo.txt
+
+# Build and release artifacts
+build/
+dist/
+release/
+*.zip
+*.tar.gz
+*.rar
+*.7z

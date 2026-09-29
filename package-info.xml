@@ -4,19 +4,40 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info">
     <id>digger:translit</id>
     <name>Translit</name>
-    <version>1.0.2</version>
+    <version>1.0.4</version>
     <type>modification</type>
+    <description>Transliteration for message composition. Licensed under the MIT License.</description>
 
     <install for="2.0 - 2.0.99">
-        <readme>README.md</readme>
+        <readme parsebbc="true" lang="english">readme.txt</readme>
+        <readme parsebbc="true" lang="russian">readme.russian.txt</readme>
+        <readme parsebbc="true" lang="russian-utf8">readme.russian-utf8.txt</readme>
         <code>hooks.php</code>
         <require-dir name="Sources" destination="$boarddir"/>
         <require-dir name="Themes" destination="$boarddir"/>
     </install>
 
+    <install for="2.1 - 2.1.99">
+        <readme parsebbc="true" lang="english">readme.txt</readme>
+        <readme parsebbc="true" lang="russian">readme.russian-utf8.txt</readme>
+        <code>hooks.php</code>
+        <require-file name="Sources/Mod-Translit.php" destination="$sourcedir"/>
+        <require-file name="Themes/default/scripts/mod-translit.js" destination="$themedir/scripts"/>
+        <require-file name="Themes/default/languages/Translit/Translit.english.php" destination="$languagedir/Translit"/>
+        <require-file name="SMF21/Themes/default/languages/Translit/Translit.russian.php" destination="$languagedir/Translit"/>
+    </install>
+
     <uninstall for="2.0 - 2.0.99">
         <code>hooks.php</code>
         <remove-dir name="$languagedir/Translit"/>
+        <remove-file name="$themedir/scripts/mod-translit.js"/>
+        <remove-file name="$sourcedir/Mod-Translit.php"/>
+    </uninstall>
+
+    <uninstall for="2.1 - 2.1.99">
+        <code>hooks.php</code>
+        <remove-file name="$languagedir/Translit/Translit.english.php"/>
+        <remove-file name="$languagedir/Translit/Translit.russian.php"/>
         <remove-file name="$themedir/scripts/mod-translit.js"/>
         <remove-file name="$sourcedir/Mod-Translit.php"/>
     </uninstall>

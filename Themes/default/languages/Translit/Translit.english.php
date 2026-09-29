@@ -1,11 +1,11 @@
 <?php
 /**
+ * English labels for Translit on SMF 2.0 and 2.1.
  * @package SMF Translit Mod
- * @file Translit.english.php
- * @author digger <digger@mysmf.net> <https://mysmf.net>
  * @copyright Copyright (c) 2012-2019, digger
+ * @link https://github.com/realdigger/SMF-Translit
  * @license The MIT License (MIT) https://opensource.org/licenses/MIT
- * @version 1.0
+ * @version 1.0.4
  */
 
 $txt['translit_auto'] = 'Translit';

@@ -1,11 +1,11 @@
 <?php
 /**
+ * Russian CP1251 labels for Translit on SMF 2.0.
  * @package SMF Translit Mod
- * @file Translit.russian.php
- * @author digger <digger@mysmf.net> <https://mysmf.net>
  * @copyright Copyright (c) 2012-2019, digger
+ * @link https://github.com/realdigger/SMF-Translit
  * @license The MIT License (MIT) https://opensource.org/licenses/MIT
- * @version 1.0
+ * @version 1.0.4
  */
 
 $txt['translit_auto'] = 'Автотранслит';
